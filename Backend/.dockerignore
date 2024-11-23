@@ -1,0 +1,13 @@
+# Ignorar dependencias locales
+node_modules
+
+# Ignorar archivos de logs
+npm-debug.log
+*.log
+
+# Ignorar variables de entorno sensibles|Revisar
+#.env
+
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
