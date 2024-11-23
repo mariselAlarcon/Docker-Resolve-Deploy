@@ -33,20 +33,12 @@ services:
       - mongo-cluster
 
   mongo-backup:
-    image: alpine:latest
+    build:
+      context: ./mongo_backups
+      dockerfile: Dockerfile
     container_name: mongo_backup
     volumes:
-      - ./mongo_backups:/backups
-    entrypoint: >
-      sh -c "
-      apk update &&
-      apk add --no-cache mongodb-tools &&
-      while true; do
-        TIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S') &&
-        mongodump --host=mongo_db --username=admin --password=admin1234 --archive=/backups/backup_$TIMESTAMP.gz &&
-        sleep 86400;
-      done
-      "
+      - ./mongo_backups/backups:/backups
     depends_on:
       - mongo_db
     networks:
