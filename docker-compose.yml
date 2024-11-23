@@ -1,0 +1,61 @@
+services:
+
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data/gym_db:/data/dump
+      - ./mongo_data/mongo_script:/docker-entrypoint-initdb.d
+      - ./mongo_backups:/backups 
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin1234
+    restart: always
+    networks: 
+      - mongo-cluster
+
+  mongo-client:
+    image: mongo-express:latest
+    container_name: mongo_client
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin1234
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+      ME_CONFIG_BASICAUTH_USERNAME: user
+      ME_CONFIG_BASICAUTH_PASSWORD: admin1234
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin1234@mongo_db:27017/gym_db?authSource=admin
+    restart: always
+    networks: 
+      - mongo-cluster
+
+  mongo-backup:
+    image: alpine:latest
+    container_name: mongo_backup
+    volumes:
+      - ./mongo_backups:/backups
+    entrypoint: >
+      sh -c "
+      apk update &&
+      apk add --no-cache mongodb-tools &&
+      while true; do
+        TIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S') &&
+        mongodump --host=mongo_db --username=admin --password=admin1234 --archive=/backups/backup_$TIMESTAMP.gz &&
+        sleep 86400;
+      done
+      "
+    depends_on:
+      - mongo_db
+    networks:
+      - mongo-cluster
+
+
+networks:
+  mongo-cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16
