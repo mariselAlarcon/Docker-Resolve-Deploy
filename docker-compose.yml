@@ -52,6 +52,21 @@ services:
     networks:
       - mongo-cluster
 
+  backend:
+    container_name: backend
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://admin:admin1234@mongo_db:27017/gym_db?authSource=admin
+    depends_on:
+      - mongo_db
+    restart: always
+    networks:
+      - mongo-cluster
+
 
 networks:
   mongo-cluster:
