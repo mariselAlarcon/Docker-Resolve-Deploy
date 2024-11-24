@@ -1,0 +1,16 @@
+.main-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.object-form {
+    max-width: 800px !important;
+    margin: auto;
+}
+
+.loadingPage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

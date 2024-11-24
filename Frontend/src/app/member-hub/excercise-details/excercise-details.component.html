@@ -1,0 +1,50 @@
+<div *ngIf="exercise"  class="modal fade" id="modalDetails" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Detalles de {{exercise.name}}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-inline-flex gap-1 mb-2">
+                    <span class="badge bg-primary"></span>
+                </div>
+                <h4 class="card-title mb-2">{{exercise.name}}</h4>
+                <p class="card-text">{{exercise.instruction}}</p>
+                <ul class="list-group mb-2 list-group-flush">
+                    <li class="list-group-item"><span class="fw-bold">Accesorio(s): </span> {{exercise.accessory}}</li>
+                    <li class="list-group-item"><span class="fw-bold">Dificultad: </span> {{exercise.difficult}} </li>
+                </ul>
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div *ngFor="let img of exercise.images; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
+                            <img [src]="convertToBase64(img.data.data, img.contentType)" class="d-block w-100" alt="...">
+                        </div>
+                        
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Place to the bottom of scripts -->
+<script>
+    const myModal = new bootstrap.Modal(
+        document.getElementById("modalId"),
+        options,
+    );
+</script>

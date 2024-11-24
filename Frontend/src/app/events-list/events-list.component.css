@@ -1,0 +1,11 @@
+.class-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px rgba(0, 0, 0, 0.5);
+    transition: translate 0.3s;
+}
+
+.class-card:hover {
+    translate: 0 -2%;
+    box-shadow: 0 6px rgba(0, 0, 0, 0.5);
+}

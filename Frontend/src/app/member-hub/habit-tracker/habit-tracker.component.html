@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+<nav aria-label="Page navigation example">
+  <ul class="pagination pagination-lg justify-content-center">
+    <li class="page-item" (click)="subtractMonths()">
+      <a class="page-link" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item" (click)="addMonths()">
+      <a class="page-link" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+</div>
+<table class="table-calendar">
+  <thead>
+    <tr>
+      <th colspan="8" class="fs-4">{{ WorkingDate | date:'MMMM yyyy':undefined:'es' | titlecase }}</th>
+    </tr>
+    <tr class="fs-6">
+      <th><span class="d-none d-sm-inline">Domingo</span><span class="d-sm-none d-inline">D</span></th>
+      <th><span class="d-none d-sm-inline">Lunes</span><span class="d-sm-none d-inline">L</span></th>
+      <th><span class="d-none d-sm-inline">Martes</span><span class="d-sm-none d-inline">M</span></th>
+      <th><span class="d-none d-sm-inline">Miércoles</span><span class="d-sm-none d-inline">M</span></th>
+      <th><span class="d-none d-sm-inline">Jueves</span><span class="d-sm-none d-inline">J</span></th>
+      <th><span class="d-none d-sm-inline">Viernes</span><span class="d-sm-none d-inline">V</span></th>
+      <th><span class="d-none d-sm-inline">Sábado</span><span class="d-sm-none d-inline">S</span></th>
+      <th><span class="d-none d-sm-inline">Objetivo</span><span class="d-sm-none d-inline">O</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(week of calendar; track week){
+    <tr>
+      @for(day of week.days; track day){
+      <td>
+        @if(day){
+        <div class="calendar-number" [class.habit-success]="day?.wasPresent" [class.today]="isCurrentMonth && day?.isToday">
+          {{day.date}}</div>
+        }
+      </td>
+      }
+      <td [class.week-failed]="!week.goalReached" [class.week-success]="week.goalReached">{{week.daysAttended}} /
+        {{daysGoals}} <i [class.bi-check]="week.goalReached" [class.bi-x]="!week.goalReached"></i></td>
+    </tr>
+    }
+  </tbody>
+
+</table>

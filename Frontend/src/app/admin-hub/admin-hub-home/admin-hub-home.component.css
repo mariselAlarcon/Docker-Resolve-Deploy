@@ -1,0 +1,23 @@
+.ah-home-button{
+    height: 250px;
+}
+
+.ah-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 250px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.ah-button .bi {
+    font-size: 2rem; /* Tamaño del icono */
+    margin-bottom: 5px; /* Espacio entre el icono y el texto */
+}
+
+.ah-button .btn-text {
+    font-size: 0.8rem; /* Tamaño del texto */
+}

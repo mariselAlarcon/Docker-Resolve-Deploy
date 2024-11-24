@@ -1,0 +1,54 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+            <h3 class="text-center pb-3">Nuestras Clases</h3>
+            <div class="row row-cols-2 g-3">
+                @for(class of classList; track class){
+                <div class="col">
+                    <div class="card class-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-center">{{class.name}}</h5>
+                            <p class="card-text">{{class.description}}</p>
+                            <p class="text-primary-emphasis fst-italic mt-auto">{{class.schedule}}</p>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <h3 class="text-center pb-3">Próximos Eventos</h3>
+            <div class="row row-cols-1 g-3">
+                @for (eventItem of eventList; track eventItem) {
+                <div class="col">
+                    <div class="card class-card">
+                        <div class="card-header bg-primary">
+                            <h5 class="fw-bold">{{eventItem.name}}</h5>
+                        </div>
+                        <div class="card-body row">
+                            <div class="col-6">
+                                <p class="card-text">{{eventItem.description}}</p>
+                            </div>
+                            <ul class="list-group list-group-flush col-6">
+                                <li class="list-group-item">
+                                    <strong>Fecha:</strong> <span class="text-nowrap"> {{eventItem.date |
+                                        date:'longDate':undefined:'es'}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Hora de Inicio:</strong> <span class="text-nowrap"> {{eventItem.startTime |
+                                        date:'shortTime'}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Hora de Finalización:</strong> <span class="text-nowrap">
+                                        {{eventItem.finishTime
+                                        | date:'shortTime'}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

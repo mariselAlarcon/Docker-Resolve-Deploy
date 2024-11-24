@@ -1,0 +1,11 @@
+.formIngreso{
+    width: 50%;
+}
+
+.invalid-feedback-label{
+    color: #ea868f;
+}
+
+.card-title{
+    text-transform: uppercase;
+}

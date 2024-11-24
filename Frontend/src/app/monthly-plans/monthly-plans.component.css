@@ -1,0 +1,29 @@
+
+.benefit-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s;
+}
+
+.benefit-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.benefit-icon {
+    font-size: 40px;
+}
+
+.benefit-title {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.benefit-text {
+    color: #6c757d;
+}
+
+.benefit-text {
+    color: #6c757d;
+}

@@ -1,0 +1,32 @@
+<section class="row align-items-center g-5 pt-5 pb-5">
+    <div class="col-lg-8">
+      <h1 class="display-5 fw-bold text-body-emphasis text-center text-md-start lh-1 mb-3">
+        <span class="text-primary">Elige el plan que</span>
+        <br>mejor se adapta a tus metas
+      </h1>
+      <p class="lead text-center text-md-start">
+        <span class="fw-medium">Explora nuestros planes de membresía</span><br>
+        Cada uno diseñado para ofrecerte flexibilidad y valor. Desde acceso ilimitado hasta sesiones personalizadas, encuentra el plan perfecto para ti y comienza tu viaje hacia una mejor versión de ti mismo hoy.
+      </p>
+    </div>
+</section>
+<section class="pb-5">
+    <div class="container">
+      <div class="row gy-3">
+        @for(plan of monthlyPlans; track plan._id ){
+            <div class="col-md-4">
+                <div class="card benefit-card text-center h-100">
+                  <div class="card-body">
+                    <div class="benefit-icon">
+                      <i class="bi bi-bookmark-star-fill text-primary"></i>
+                    </div>
+                    <h3 class="benefit-title">{{plan.name}}</h3>
+                    <p class="benefit-text">Dias Disponibles: {{plan.availableDays}}</p>
+                    <h4 class="benefit-price">${{plan.price}}</h4>
+                  </div>
+                </div>
+              </div>
+        }
+      </div>
+    </div>
+  </section>

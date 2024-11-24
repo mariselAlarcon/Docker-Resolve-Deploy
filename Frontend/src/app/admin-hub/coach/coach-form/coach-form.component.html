@@ -1,0 +1,97 @@
+<div class="row text-center">
+    <h1 class="fs-2">{{action}} Profesor</h1>
+    <!-- Para probar 
+    <p>coach: {{getFormValuesWithoutImage() | json}}</p>-->
+</div>
+<div class="row justify-content-center">
+    <div class="object-form">
+        <form [formGroup]="coachForm" class="row g-3" (ngSubmit)="onSubmit()">
+            <div class="col-md-6">
+                <label for="inputFullname" class="form-label">Nombre Completo</label>
+                <input id="inputFullname" type="text"
+                    [class.is-invalid]="fullname?.invalid && (fullname?.dirty || fullname?.touched)"
+                    class="form-control" formControlName="fullname">
+                <div *ngIf="validateFullnameRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateFullnameMinLength()" class="invalid-feedback">
+                    El nombre completo debe tener al menos 3 caracteres.
+                </div>
+                <div *ngIf="validateFullnamePattern()" class="invalid-feedback">
+                    El nombre completo solo puede contener letras y espacios.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Correo Electrónico</label>
+                <input id="inputEmail" type="email"
+                    [class.is-invalid]="email?.invalid && (email?.dirty || email?.touched)" class="form-control"
+                    formControlName="email">
+                <div *ngIf="validateEmailRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateEmailPattern()" class="invalid-feedback">
+                    El correo electrónico no es válido.
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="inputAge" class="form-label">Edad</label>
+                <input id="inputAge" type="number" [class.is-invalid]="age?.invalid && (age?.dirty || age?.touched)"
+                    class="form-control" formControlName="age">
+                <div *ngIf="validateAgeRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateAgeRange()" class="invalid-feedback">
+                    La edad debe estar entre 1 y 120.
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <label for="inputWorkArea" class="form-label">Área de Trabajo</label>
+                <input id="inputWorkArea" type="text"
+                    [class.is-invalid]="workArea?.invalid && (workArea?.dirty || workArea?.touched)"
+                    class="form-control" formControlName="workArea">
+                <div *ngIf="validateWorkAreaRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <label for="inputImg" class="form-label">Imagen</label>
+                <input id="inputImg" type="file" [class.is-invalid]="img?.invalid && (img?.dirty || img?.touched)"
+                    class="form-control" formControlName="img" (change)="onFileChange($event)">
+            </div>
+
+            <div class="col-md-12">
+                <img *ngIf="imageBase64" [src]="imageBase64" alt="Imagen seleccionada" class="img-thumbnail"
+                    style="max-height: 200px;">
+            </div>
+
+            <div class="col-md-12">
+                <label for="inputDescription" class="form-label">Descripción</label>
+                <textarea id="inputDescription"
+                    [class.is-invalid]="description?.invalid && (description?.dirty || description?.touched)"
+                    class="form-control" rows="3" formControlName="description" required></textarea>
+                <div *ngIf="validateDescriptionRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputSchedule" class="form-label">Horario</label>
+                <input id="inputSchedule" type="text"
+                    [class.is-invalid]="schedule?.invalid && (schedule?.dirty || schedule?.touched)"
+                    class="form-control" formControlName="schedule" required>
+                <div *ngIf="validateScheduleRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" [disabled]="coachForm.invalid">{{action}}</button>
+            </div>
+        </form>
+    </div>
+</div>

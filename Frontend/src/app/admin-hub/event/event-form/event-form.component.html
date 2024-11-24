@@ -1,0 +1,57 @@
+<div class="row text-center">
+    <h1 class="fs-2">{{ action }} Evento</h1>
+
+    <!-- Para probar
+    <p>evento: {{ eventForm.value | json }}</p> -->
+
+</div>
+
+<div class="row justify-content-center">
+    <div class="object-form">
+        <form [formGroup]="eventForm" class="row g-3" (ngSubmit)="onSubmit()">
+            <div class="col-md-6">
+                <label for="inputName" class="form-label">Nombre</label>
+                <input id="inputName" type="text" [class.is-invalid]="name?.invalid && (name?.dirty || name?.touched)" class="form-control" formControlName="name">
+                <div *ngIf="validateNameRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <label for="inputDescription" class="form-label">Descripción</label>
+                <textarea id="inputDescription" [class.is-invalid]="description?.invalid && (description?.dirty || description?.touched)" class="form-control" rows="3" formControlName="description" required></textarea>
+                <div *ngIf="validateDescriptionRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputDate" class="form-label">Fecha</label>
+                <input id="inputDate" type="date" [class.is-invalid]="date?.invalid && (date?.dirty || date?.touched)" class="form-control" formControlName="date" required>
+                <div *ngIf="validateDateRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputStartTime" class="form-label">Hora de Inicio</label>
+                <input id="inputStartTime" type="time" [class.is-invalid]="startTime?.invalid && (startTime?.dirty || startTime?.touched)" class="form-control" formControlName="startTime" required>
+                <div *ngIf="validateStartTimeRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputFinishTime" class="form-label">Hora de Finalización</label>
+                <input id="inputFinishTime" type="time" [class.is-invalid]="finishTime?.invalid && (finishTime?.dirty || finishTime?.touched)" class="form-control" formControlName="finishTime" required>
+                <div *ngIf="validateFinishTimeRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">{{ action }}</button>
+            </div>
+        </form>
+    </div>
+</div>

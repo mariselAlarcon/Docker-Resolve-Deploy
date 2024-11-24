@@ -1,0 +1,17 @@
+
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <h1>Pago de Cuota</h1>
+      <form >
+        <div class="mb-3">
+          <label for="inputDni" class="form-label">QR:</label>
+            <div *ngIf="qrImage">
+            <h4>Código QR: </h4>
+            <img [src]="qrImage" alt="Generate qr" class="img-fluid">
+            </div>
+        </div>
+        <a class="btn btn-primary" (click)="addMonthlyFee()">Pagado</a>
+      </form>
+    </div>
+</div>

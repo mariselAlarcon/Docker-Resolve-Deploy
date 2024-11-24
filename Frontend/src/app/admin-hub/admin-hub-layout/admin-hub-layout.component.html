@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a routerLink="/admin-dashboard/home"
+                    class="d-none d-sm-flex align-items-center pb-3 pt-5 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <img src="/assets/img/ResolveAdminDashboardLogo.png" class="img-fluid">
+                </a>
+                <ul class="nav nav-pills flex-column align-items-center align-items-sm-start navbar-nav my-auto"
+                    id="menu">
+                    <li class="nav-item">
+                        <a routerLink="/admin-dashboard/home" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house-fill"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin-dashboard/users" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people-fill"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin-dashboard/members" class="nav-link px-0 align-middle">
+                            <fa-icon [icon]="faFireFlameCurved"></fa-icon> <span
+                                class="ms-1 d-none d-sm-inline">Socios</span> </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin-dashboard/exercises" class="nav-link px-0 align-middle">
+                            <fa-icon [icon]="faDumbbell"></fa-icon> <span
+                                class="ms-1 d-none d-sm-inline">Ejercicios</span> </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin-dashboard/classes" class="nav-link px-0 align-middle">
+                            <fa-icon [icon]="faPersonChalkboardfa"></fa-icon> <span
+                                class="ms-1 d-none d-sm-inline">Clases</span> </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin-dashboard/coaches" class="nav-link px-0 align-middle">
+                            <fa-icon [icon]="faGraduationCap"></fa-icon> <span
+                                class="ms-1 d-none d-sm-inline">Profesores</span> </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin-dashboard/events" class="nav-link px-0 align-middle">
+                            <fa-icon [icon]="faCalendarPlus"></fa-icon> <span
+                                class="ms-1 d-none d-sm-inline">Eventos</span> </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="pb-4">
+                    <a class="btn btn-primary d-flex align-items-center text-white text-decoration-none" routerLink="/home">
+                        <span><i class="bi bi-arrow-left"></i><span class="d-none d-sm-inline mx-1">Volver</span></span>
+                    </a>
+                </div>
+                <!-- <div class="dropdown pb-4">
+                    <a routerLink="/admin-dashboard/home" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                            class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">loser</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" routerLink="/admin-dashboard/home">New project...</a></li>
+                        <li><a class="dropdown-item" routerLink="/admin-dashboard/home">Settings</a></li>
+                        <li><a class="dropdown-item" routerLink="/admin-dashboard/home">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" routerLink="/admin-dashboard/home">Sign out</a></li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+        <div class="col py-3 mt-5">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

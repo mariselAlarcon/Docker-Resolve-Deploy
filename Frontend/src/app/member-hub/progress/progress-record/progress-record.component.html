@@ -1,0 +1,66 @@
+<div class="row text-center">
+    <h1 class="fs-2">{{ action }}</h1>
+    <!-- Para probar -->
+    <p>usuario: {{ progressForm.value | json }}</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="object-form">
+        <form [formGroup]="progressForm" class="row g-3" (submit)="onSubmit()">
+            <div class="col-md-6">
+                <label for="inputName" class="form-label">Nombre</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="name?.invalid && (name?.dirty || name?.touched)" id="inputName"
+                    formControlName="name">
+                <div *ngIf="validateNameRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputWeight" class="form-label">Peso (Kg)</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="weight?.invalid && (weight?.dirty || weight?.touched)" id="inputWeight"
+                    formControlName="weight">
+                <div *ngIf="validateWeightRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateWeightPattern()" class="invalid-feedback">
+                    El peso debe ser un número válido.
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <label for="inputImg" class="form-label">Imágenes</label>
+                <div class="row">
+                    <div class="col" *ngIf="action === 'Modificar' && !imgUpdate">
+                        <img [src]="imageData" alt="Imagen del usuario" width="200" height="200">
+                    </div>
+                    <div class="col">
+                        <input id="inputImg" type="file"
+                            [class.is-invalid]="img?.invalid && (img?.dirty || img?.touched)" class="form-control"
+                            formControlName="img" (change)="onFileChange($event)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputDate" class="form-label">Fecha</label>
+                <input type="date" class="form-control"
+                    [class.is-invalid]="date?.invalid && (date?.dirty || date?.touched)" id="inputDate"
+                    formControlName="date">
+                <div *ngIf="validateDateRequired()" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateDateInvalid()" class="invalid-feedback">
+                    La fecha no es válida.
+                </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+                <button *ngIf="action === 'Registrar'" type="submit" class="btn btn-primary">Registrar</button>
+                <button *ngIf="action === 'Modificar'" type="submit" class="btn btn-primary">Modificar</button>
+            </div>
+        </form>
+    </div>
+</div>

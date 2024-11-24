@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1>Cobro de Cuota</h1>
+      <form >
+        <div class="mb-3">
+          <label for="inputDni" class="form-label">Ingrese DNI del socio:</label>
+          <input type="text" class="form-control" id="inputDni" [(ngModel)]="dni" [ngModelOptions]="{standalone: true}">
+        </div>
+        <button class="btn btn-primary" (click)="getMember()">Buscar Socio</button>
+      </form>
+    </div>
+</div>
+  
+  <div class="row justify-content-center mt-5 mb-5" *ngIf="memberFound">
+    <div class="col-md-6">
+      <form >
+        <div class="mb-3">
+          <label for="inputMonthlyPlan" class="form-label">Seleccione Plan Mensual:</label>
+          <select id="inputMonthlyPlan" class="form-select" [(ngModel)]="monthlyPlanSelectedId" (change)="getMonthlyPlan(monthlyPlanSelectedId)" [ngModelOptions]="{standalone: true}">
+            @for(plan of monthlyPlans; track plan._id){
+              @if(plan._id == monthlyPlanId){
+                <option value="{{plan._id}}" selected>{{ plan.name }}</option>
+              }
+              @else{
+                <option value="{{plan._id}}">{{ plan.name }}</option>
+              }
+            }
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="inputCost" class="form-label">Costo:</label>
+          <input type="number" class="form-control" id="inputCost" [(ngModel)]="monthlyPlanSelected.price" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="mb-3">
+          <label for="inputExpirationDate" class="form-label">Fecha de Vencimiento:</label>
+          <input type="date" class="form-control" id="inputExpirationDate" [(ngModel)]="dueDate" [ngModelOptions]="{standalone: true}">
+        </div>
+        <button class="btn btn-success" (click)="onGenerateQR()">Generar QR de Pago</button>
+      </form>
+    </div>
+  </div>
+
+  @if(linkCreated){
+  <app-payment-link [monthlyFee]="monthlyFee" [paymentLink]="paymentLink"></app-payment-link>
+  }

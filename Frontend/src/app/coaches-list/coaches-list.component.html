@@ -1,0 +1,23 @@
+@if(!isLoading){
+<h2 class="fw-bolder text-uppercase text-end">Nuestros Profesores</h2>
+<div class="row row-cols-1 row-cols-md-2 gy-3 pt-4">
+    @for(coach of coachesList; track coach){
+    <div class="col row mb-3">
+        <div class="col-6">
+            <img class="img-trainer" [src]="coach.imgSrc">
+        </div>
+        <div class="col-6">
+            <h3>{{coach.fullname}}</h3>
+            <p>{{coach.workArea.name}}</p>
+            <p>{{coach.description}}</p>
+        </div>
+    </div>
+    }
+</div>
+}
+@else {
+<div class="loadingPage">
+    <img src="/assets/img/loadingPlaceholder.gif" style="width: 100px;">
+</div>
+
+}

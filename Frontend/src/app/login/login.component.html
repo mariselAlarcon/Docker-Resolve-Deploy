@@ -1,0 +1,53 @@
+<div class="row text-center">
+    <h1 class="fs-2">Iniciar Sesión</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="object-form">
+        <form [formGroup]="loginForm" class="row g-3" (submit)="onLogin()">
+            <div class="col-md-12" *ngIf="isLogged">
+                <div class="invalid-feedback-label">
+                    Credenciales incorrectas.
+                </div>
+            </div>
+            <!-- Nombre de Usuario -->
+            <div class="col-md-12">
+                <label for="inputUsername" class="form-label">Nombre de Usuario</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="inputUsername">&#64;</span>
+                    <input type="text" class="form-control"
+                        [class.is-invalid]="username?.invalid && (username?.dirty || username?.touched)"
+                        formControlName="username">
+                    <div *ngIf="validateUsernameRequired()" id="validateUsernameFeedback" class="invalid-feedback">
+                        El campo no puede estar vacío.
+                    </div>
+                    <div *ngIf="validateUsernameMinLength()" id="validateUsernameMinLengthFeedback"
+                        class="invalid-feedback">
+                        El nombre de usuario debe tener al menos 3 caracteres.
+                    </div>
+                </div>
+            </div>
+            <!-- Contraseña -->
+            <div class="col-md-12">
+                <label for="inputPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control"
+                    [class.is-invalid]="password?.invalid && (password?.dirty || password?.touched)" id="inputPassword"
+                    formControlName="password">
+                <div *ngIf="validatePasswordRequired()" id="validatePasswordFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validatePasswordMinLength()" id="validatePasswordMinLengthFeedback"
+                    class="invalid-feedback">
+                    La contraseña debe tener al menos 8 caracteres.
+                </div>
+                <div *ngIf="validatePasswordPattern()" id="validatePasswordPatternFeedback" class="invalid-feedback">
+                    La contraseña debe contener al menos una letra y un número.
+                </div>
+            </div>
+
+            <!-- Botón de Inicio de Sesión -->
+            <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+</div>

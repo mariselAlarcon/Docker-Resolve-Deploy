@@ -1,0 +1,54 @@
+<div class="row ">
+    <section class="col-6">
+        <h2 class="text-center">Comentarios</h2>
+        <div *ngIf="feedbacks?.length < 1">No hay comentarios ...</div>
+        <div class="card m-3" *ngFor="let feed of feedbacks">
+            <div class="card-header row">
+
+                <div class="col-6">
+                    <h5 class="card-title"> {{feed.member.name}} </h5>
+                    <p class="card-text"> <i>
+                            {{feed.date | date}}
+                        </i> </p>
+                    <p>Puntaje: <i *ngFor="let star of getStars(feed.score)" class="bi bi-star-fill" style="color: #FFD43B;"></i> </p>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <p class="card-text"> {{feed.body}}</p>
+            </div>
+
+        </div>
+    </section>
+    <section class="col-6">
+        <h1 class="fs-2 text-center"> Nos interesa tu opinión</h1>
+        
+        <div class="row justify-content-center">
+            <div class="object-form m-2">
+                <form [formGroup]="feedbackForm" class="row g-3" (ngSubmit)="onSubmit()">
+
+                    <div class="col-md-6">
+                        <ngx-star-rating formControlName="score"></ngx-star-rating>
+                        <div *ngIf="validateScoreRequired()" class="invalid-feedback">
+                            El campo no puede estar vacío y debe estar entre 1 y 5.
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        
+                        <textarea id="inputDescription" placeholder="Escribe tu comentario aquí"
+                            [class.is-invalid]="description?.invalid && (description?.dirty || description?.touched)"
+                            class="form-control" rows="3" formControlName="description" required></textarea>
+                        <div *ngIf="validateDescriptionRequired()" class="invalid-feedback">
+                            El campo no puede estar vacío.
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</div>

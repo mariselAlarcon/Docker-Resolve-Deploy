@@ -1,0 +1,9 @@
+.item{
+    background-color: rgba(255, 255, 255, 0.801);
+    border-radius: 3px;
+    color: black;
+    text-align: center;
+}
+.table, .table th,.table td {
+    border: none !important;
+  }

@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <h1>Listado de Socios</h1>
+        <div class="">
+            <a name="" id="" class="btn btn-primary" routerLink="/admin-dashboard/members/new" role="button">Nuevo Socio</a>   
+        </div>
+    </div>
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="width:100%">
+    </table>
+</div>
+
+
+<!-- Modal de Confirmación -->
+
+<button #confirmationModal type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confimationModal" [hidden]="true">
+    Mostrar confirmación
+</button>
+<div class="modal fade" id="confimationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img class="card-img-top" src="/assets/img/WarningItemDeletion.png" alt="Advertencia Borrado de Elemento"
+                    style="height: 10rem;object-fit: contain;margin-bottom: 20px;">
+                <h5 class="fw-bold">Borrar Socio del Sistema</h5>
+                <p class="text-secondary">¿Estas seguro de que deseas borrar este socio? <br> Esta acción es
+                    <span class="fw-bold">irreversible.</span></p>
+                <div class="row row-cols-2 gx-2">
+                    <div class="col d-grid">
+                        <button type="button" class="btn btn-secondary flex-fill"
+                            data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                    <div class="col d-grid">
+                        <button type="button" class="btn btn-danger flex-fill"
+                            data-bs-dismiss="modal" (click)="deleteMember()">Borrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #actionButtons let-data="adtData" let-emitter="captureEvents">
+    <app-action-button-group
+        [data]="data" (emitter)="emitter($event)"
+    ></app-action-button-group>
+</ng-template>

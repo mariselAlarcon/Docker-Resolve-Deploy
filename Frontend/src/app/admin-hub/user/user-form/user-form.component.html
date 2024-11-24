@@ -1,0 +1,184 @@
+<div class="row text-center">
+    <h1 class="fs-2">{{action}} {{item}}</h1>
+    <!-- Para probar 
+    <p>usuario: {{getFormValuesWithoutImage() | json}}</p>-->
+</div>
+<div class="row justify-content-center">
+    <div class="object-form">
+        <form [formGroup]="userForm" class="row g-3" (submit)="onSubmit()">
+            <div class="col-md-6">
+                <label for="inputUsername" class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="inputUsername">&#64;</span>
+                    <input type="text" class="form-control"
+                        [class.is-invalid]="username?.invalid && (username?.dirty || username?.touched)"
+                        formControlName="username">
+                    <div *ngIf="validateUsernameRequired()" id="validateUsernameFeedback" class="invalid-feedback">
+                        El campo no puede estar vacío.
+                    </div>
+                    <div *ngIf="validateUsernameMinLength()" id="validateUsernameMinLengthFeedback"
+                        class="invalid-feedback">
+                        El nombre de usuario debe tener al menos 3 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control"
+                    [class.is-invalid]="password?.invalid && (password?.dirty || password?.touched)" id="inputPassword"
+                    formControlName="password">
+                <div *ngIf="validatePasswordRequired()" id="validatePasswordFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validatePasswordMinLength()" id="validatePasswordMinLengthFeedback"
+                    class="invalid-feedback">
+                    La contraseña debe tener al menos 8 caracteres.
+                </div>
+                <div *ngIf="validatePasswordPattern()" id="validatePasswordPatternFeedback" class="invalid-feedback">
+                    La contraseña debe contener al menos una letra y un número.
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label for="inputEmail" class="form-label">Correo</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="email?.invalid && (email?.dirty || email?.touched)" id="inputEmail"
+                    formControlName="email">
+                <div *ngIf="validateEmailRequired()" id="validateEmailFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateEmailFormat()" id="validateEmailFormatFeedback" class="invalid-feedback">
+                    El formato del email no es válido.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputRole" class="form-label">Rol de Usuario</label>
+                @if(item == 'Usuario'){
+                <select id="inputRole" class="form-select" formControlName="role"
+                    [class.is-invalid]="this.role?.invalid && (this.role?.dirty || this.role?.touched)">
+                    <option *ngIf="userForm.controls['role'].value" [ngValue]="userForm.controls['role'].value">{{
+                        userForm.controls['role'].value.name }}</option>
+
+                    <option selected value="">Elegir...</option>
+                    @for(role of roles;track role){
+                    <option [value]="role._id" [ngValue]="role">{{role.name}}</option>
+                    }
+                </select>
+                }
+                @else{
+                <input type="text" class="form-control" id="inputRole" value="Socio" disabled>
+                }
+                <div *ngIf="validateRoleRequired()" id="validateRoleFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <label for="inputImg" class="form-label">Foto de Pérfil</label>
+                <div class="row">
+                    <div class="col" *ngIf="action=='Modificar' && imgUpdate==false">
+                        <img [src]="imageData" alt="Imagen del usuario" width="200" height="200">
+                    </div>
+                    <div class="col">
+                        <input id="inputImg" type="file"
+                            [class.is-invalid]="img?.invalid && (img?.dirty || img?.touched)" class="form-control"
+                            formControlName="img" (change)="onFileChange($event)">
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="col-md-4" *ngIf="this.role?.value == 2">
+                <label for="inputMonthlyPlan" class="form-label">Plan Mensual</label>
+                <select id="inputMonthlyPlan" class="form-select" formControlName="mounthlyPlan">
+                    @for(plan of monthlyPlans;track plan){
+                    <option [value]="plan.id">{{plan.title}}</option>
+                    }
+                </select>
+            </div>
+
+            <div *ngIf="imageBase64post" class="col-md-12">
+                <img [src]="imageBase64post" alt="Imagen seleccionada" class="img-thumbnail" style="max-height: 200px;">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputFirstName" class="form-label">Nombre</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="this.firstName?.invalid && (this.firstName?.dirty || this.firstName?.touched)"
+                    id="inputFirstName" formControlName="firstName">
+                <div *ngIf="validateFirstNameRequired()" id="validateFirstNameFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateFirstNamePattern()" id="validateFirstNamePatternFeedback" class="invalid-feedback">
+                    El nombre solo puede contener letras.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputLastName" class="form-label">Apellido</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="this.lastName?.invalid && (this.lastName?.dirty || this.lastName?.touched)"
+                    id="inputLastName" formControlName="lastName">
+                <div *ngIf="validateLastNameRequired()" id="validateLastNameFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateLastNamePattern()" id="validateLastNamePatternFeedback" class="invalid-feedback">
+                    El apellido solo puede contener letras.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputDNI" class="form-label">DNI</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="this.dni?.invalid && (this.dni?.dirty || this.dni?.touched)" id="inputDNI"
+                    formControlName="dni">
+                <div *ngIf="validateDniRequired()" id="validateDniFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateDniPattern()" id="validateDniPatternFeedback" class="invalid-feedback">
+                    El DNI debe tener entre 7 y 8 dígitos.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputDateOfBirth" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control"
+                    [class.is-invalid]="this.dateOfBirth?.invalid && (this.dateOfBirth?.dirty || this.dateOfBirth?.touched)"
+                    id="inputDateOfBirth" formControlName="dateOfBirth">
+                <div *ngIf="validateDateOfBirthRequired()" id="validateDateOfBirthFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validateDateOfBirthInvalid()" id="validateDateOfBirthInvalidFeedback"
+                    class="invalid-feedback">
+                    La fecha no es válida.
+                </div>
+
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Dirección</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="this.address?.invalid && (this.address?.dirty || this.address?.touched)"
+                    id="inputAddress" formControlName="address">
+                <div *ngIf="validateAddressRequired()" id="validateAddressFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPhoneNumer" class="form-label">Número de Teléfono</label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="this.phoneNumber?.invalid && (this.phoneNumber?.dirty || this.phoneNumber?.touched)"
+                    id="inputPhoneNumer" formControlName="phoneNumber">
+                <div *ngIf="validatePhoneNumberRequired()" id="validatePhoneNumberFeedback" class="invalid-feedback">
+                    El campo no puede estar vacío.
+                </div>
+                <div *ngIf="validatePhoneNumberPattern()" id="validatePhoneNumberPatternFeedback"
+                    class="invalid-feedback">
+                    El número de teléfono no es válido.
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+                <button *ngIf="action=='Registrar'" type="submit" class="btn btn-primary">Registrar</button>
+                <button *ngIf="action=='Modificar'" type="submit" class="btn btn-primary">Modificar</button>
+            </div>
+        </form>
+    </div>
+</div>

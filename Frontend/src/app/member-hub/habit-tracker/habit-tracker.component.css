@@ -1,0 +1,52 @@
+.table-calendar{
+    text-align: center;
+    table-layout: fixed;
+    border-collapse: collapse;
+    background-color: #252525;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+tr {
+    height: 50px;
+}
+
+th td {
+    width: calc(100% / 8) !important;
+    padding: 10px;
+}
+
+.calendar-number {
+    padding: 3px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    margin: auto;
+}
+
+.habit-success {
+    color: #5fc745;
+    outline: 2px solid #5fc745 !important;
+}
+
+.week-failed {
+    font-weight: bold;
+    color: #ce3333;
+}
+
+.week-success {
+    font-weight: bold;
+    color: #5fc745;
+}
+
+.today {
+    color: #ffffff;
+    font-weight: bold;
+    outline: 2px solid #ffffff;
+}
+
+.pagination span{
+    color: #ffffff
+}

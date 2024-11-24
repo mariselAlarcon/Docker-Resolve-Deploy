@@ -1,0 +1,75 @@
+<header class="mb-md-4">
+    <nav class="navbar navbar-expand-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/assets/img/ResolveLogoDark.png" alt="" height="24" />
+
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0 mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" aria-current="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/monthlyPlans">Membresías</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/coaches">Profesores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/events">Programas</a>
+                    </li>
+                    <!-- 
+                    TODO: Mejorar navegabilidad de funciones de socios y empleados D:
+                     -->
+                    <li class="nav-item dropdown"  *ngIf="loginService.userLoggedIn() && loginService.getRoleUserLogged() =='Socio'">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Socios</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" routerLink="/feedbacks/new">Feedback</a>
+                            <a class="dropdown-item" routerLink="/habitsTracker">Habit Tracker</a>
+                            <a class="dropdown-item" routerLink="/progresses/tracker">Progress Tracker</a>
+                            <a class="dropdown-item" routerLink="/routines/creator">Rutina Diaria</a>
+                            <a class="dropdown-item" routerLink="/routines">Ver Rutinas Guardadas</a>
+                            <!-- <a class="dropdown-item" routerLink="/membershipPayments">Mi Membresía</a> -->
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" *ngIf="loginService.userLoggedIn() && loginService.getRoleUserLogged() =='Empleado'">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Empleados</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" routerLink="/attendances/record">Registrar Asistencia</a>
+                            <a class="dropdown-item" routerLink="/attendances/history">Historial de Ingresos</a>
+                            <a class="dropdown-item" routerLink="/fee/payment">Cobrar Cuota</a>
+                            <a class="dropdown-item" routerLink="/fees/details">Historial de Cobros</a>
+                            <a class="dropdown-item" routerLink="/admin-dashboard/members/new">Registrar Nuevo Miembro</a>
+                        </div>
+                    </li>
+                    <li class="nav-item" *ngIf="loginService.userLoggedIn() && loginService.getRoleUserLogged() =='Dueño'">
+                        <a class="nav-link" routerLink="/admin-dashboard/home">Admin Dashboard</a>
+                    </li>
+                    
+                </ul>
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0 mx-auto">
+                    <li class="nav-item" *ngIf="loginService.userLoggedIn()">
+                        <a class="nav-link name-user"><i class="bi bi-person-circle icon-user"></i> {{fullname}}</a>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-0">
+                    <button class="btn btn-success my-2 my-sm-0" type="button"routerLink="/login" *ngIf="!loginService.userLoggedIn()" >
+                        Iniciar Sesión
+                    </button>
+                    <button class="btn btn-success my-2 my-sm-0" type="button" *ngIf="loginService.userLoggedIn()" (click)="logout()">
+                        Cerrar Sesión
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+</header>

@@ -1,0 +1,113 @@
+<div class="row text-center">
+    <h1 class="fs-2">{{ action }} Ejercicio</h1>
+    <!-- Para probar 
+    <p>ejercicio: {{ exerciseForm.value | json }}</p>-->
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="object-form">
+      <form [formGroup]="exerciseForm" class="row g-3" (ngSubmit)="onSubmit()">
+        <div class="col-md-6">
+          <label for="inputName" class="form-label">Nombre</label>
+          <input id="inputName" type="text" 
+            class="form-control" formControlName="name">
+        </div>
+  
+        <div class="col-md-6">
+          <label for="inputAccessory" class="form-label">Accesorio</label>
+          <input id="inputAccessory" type="text"
+            class="form-control"
+            formControlName="accessory">
+        </div>
+  
+        <div class="col-md-12">
+          <label for="inputInstruction" class="form-label">Instrucción</label>
+          <textarea id="inputInstruction"
+             class="form-control"
+            rows="3" formControlName="instruction" required></textarea>
+          <div *ngIf="validateInstructionRequired()" class="invalid-feedback">
+            El campo no puede estar vacío.
+          </div>
+        </div>
+  
+        <div class="col-md-6">
+          <label for="inputDifficult" class="form-label">Dificultad</label>
+          <select id="inputDifficult"
+           class="form-control"
+            formControlName="difficult" required>
+            <option value="">Seleccionar...</option>
+            <option value="Principiante">Principiante</option>
+            <option value="Intermedio">Intermedio</option>
+            <option value="Avanzado">Avanzado</option>
+          </select>
+          <div *ngIf="validateDifficultRequired()" class="invalid-feedback">
+            El campo no puede estar vacío.
+          </div>
+        </div>
+  
+        <div class="col-md-6">
+          <label for="inputType" class="form-label">Tipo</label>
+          <select id="inputType"
+             class="form-control"
+            formControlName="type" required>
+            <option value="">Seleccionar...</option>
+            <option value="funcional">Funcional</option>
+            <option value="muscular">Musculación</option>
+          </select>
+          <div *ngIf="validateTypeRequired()" class="invalid-feedback">
+            El campo no puede estar vacío.
+          </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="inputSet" class="form-label">Sets</label>
+            <input id="inputSet" type="number"
+              class="form-control"
+              formControlName="set">
+            <div *ngIf="validateSetRequired()" class="invalid-feedback">
+              El campo no puede estar vacío.
+            </div>
+            <div *ngIf="validateSetMin()" class="invalid-feedback">
+              El valor mínimo es 1.
+            </div>
+          </div>
+    
+          <div class="col-md-6">
+            <label for="inputRep" class="form-label">Repeticiones</label>
+            <input id="inputRep" type="number"
+              class="form-control"
+              formControlName="rep">
+            <div *ngIf="validateRepRequired()" class="invalid-feedback">
+              El campo no puede estar vacío.
+            </div>
+            <div *ngIf="validateRepMin()" class="invalid-feedback">
+              El valor mínimo es 1.
+            </div>
+          </div>
+    
+          <div class="col-md-12">
+            <label for="inputMuscleGroup" class="form-label">Grupo Muscular</label>
+            <select id="inputMuscleGroup"
+              class="form-control"
+              formControlName="muscleGroup" required>
+              <option value="">Seleccionar...</option>
+              <option *ngFor="let group of muscleGroups" [value]="group._id">{{ group.name }}</option>
+           
+           </select>
+            <div *ngIf="validateMuscleGroupRequired()" class="invalid-feedback">
+              El campo no puede estar vacío.
+            </div>
+          </div>
+  
+        <div class="col-md-12">
+          <label for="inputImages" class="form-label">Imágenes</label>
+          <input id="inputImages" type="file" class="form-control" (change)="onFileChange($event)" multiple>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">{{ action }}</button>
+          </div>
+    </form>
+</div>
+</div>
+
+        

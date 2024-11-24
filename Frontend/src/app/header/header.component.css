@@ -1,0 +1,10 @@
+.icon-user{
+    font-size: 1.8vw;
+    margin-right: 1vw;
+}
+
+.name-user{
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.1vw;
+}
