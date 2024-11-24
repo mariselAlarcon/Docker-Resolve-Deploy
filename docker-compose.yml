@@ -59,6 +59,45 @@ services:
     networks:
       - mongo-cluster
 
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus 
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    restart: always
+    networks:
+      - mongo-cluster
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3001:3000"
+   # volumes:
+    #  - grafana_data:/var/lib/grafana
+    restart: always
+    networks:
+      - mongo-cluster
+
+  mongodb-exporter:
+    image: bitnami/mongodb-exporter:latest
+    container_name: mongodb_exporter
+   # volumes:
+    #- ./scripts:/scripts
+    environment:
+      - MONGODB_URI=mongodb://admin:admin1234@mongo_db:27017/admin
+    ports:
+      - "9216:9216" 
+    #entrypoint: ["./scripts/wait-for-it.sh", "mongo_db:27017", "--", "/bin/bash", "-c", "mongod_exporter"]
+    depends_on:
+      - mongo_db 
+    networks:
+      - mongo-cluster
+
 
 networks:
   mongo-cluster:
@@ -66,3 +105,7 @@ networks:
     ipam:
       config:
         - subnet: 192.168.0.0/16
+
+#Decidir si queremos datos persistentes de las metricas
+#volumes:
+ # grafana_data:

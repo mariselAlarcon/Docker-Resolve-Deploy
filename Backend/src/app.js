@@ -5,6 +5,7 @@ const cors = require("cors");
 const dbconnect = require('./database/database');
 const moment = require('moment-timezone');
 const bodyParser = require('body-parser');
+const client = require('prom-client');
 
 require('./services/cronService');
 
@@ -29,10 +30,34 @@ const feedbacksRoutes = require("./routes/feedback");
 const membersRoutes = require("./routes/member");
 const paymentRoutes = require('./routes/paymentRoutes');
 
-// Usa las rutas de pago
 
 const app = express();
 
+// Configuracion de metricas 
+const register = new client.Registry();
+//metricas predeterminadas
+client.collectDefaultMetrics({ register });
+//Metricas personalizadas: Número de solicitudes HTTP
+const httpRequestCounter = new client.Counter({
+  name: "http_requests_total",
+  help: "Número total de solicitudes HTTP",
+  labelNames: ["method", "route", "status"]
+});
+register.registerMetric(httpRequestCounter);
+
+// Middleware para rastrear solicitudes HTTP
+app.use((req, res, next) => {
+  res.on("finish", () => {
+    httpRequestCounter.inc({
+      method: req.method,
+      route: req.route ? req.route.path : req.path,
+      status: res.statusCode
+    });
+  });
+  next();
+});
+
+// Usa las rutas de pago
 app.use(session({
   secret: 'maxipro328',
   resave: false,
@@ -53,6 +78,12 @@ app.use(cors({origin: 'http://localhost:4200'}));
 
 // Establecer la zona horaria deseada
 moment.tz.setDefault('America/Argentina/Buenos_Aires');
+
+// Endpoint de métricas
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
 
 //ROUTES
 app.use('/monthlyFees', monthlyFeesRoutes);
