@@ -8,10 +8,12 @@ services:
     volumes:
       - ./mongo_data/gym_db:/data/dump
       - ./mongo_data/mongo_script:/docker-entrypoint-initdb.d
-      - ./mongo_backups:/backups 
+      - ./mongo_backups:/backups
+      #- ./mongo_data/mongod.conf:/etc/mongod.conf
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin1234
+    #command: ["mongod", "--config", "/etc/mongod.conf"]
     restart: always
     networks: 
       - mongo-cluster
@@ -95,24 +97,23 @@ services:
     environment:
     - GF_SECURITY_ADMIN_USER=admin
     - GF_SECURITY_ADMIN_PASSWORD=admin1234
-    volumes:
-      - grafana_data:/var/lib/grafana
-    restart: always
+    depends_on:
+      - prometheus
     networks:
       - mongo-cluster
 
   mongodb-exporter:
-    image: bitnami/mongodb-exporter:latest
     container_name: mongodb_exporter
-   # volumes:
-    #- ./scripts:/scripts
+    build:
+      context: ./mongodb_exporter
+      dockerfile: Dockerfile
     environment:
-      - MONGODB_URI=mongodb://admin:admin1234@mongo_db:27017/admin
+      - MONGODB_URI=mongodb://admin:admin1234@mongo_db:27017/
     ports:
       - "9216:9216" 
-    #entrypoint: ["./scripts/wait-for-it.sh", "mongo_db:27017", "--", "/bin/bash", "-c", "mongod_exporter"]
     depends_on:
-      - mongo_db 
+      - mongo_db
+    entrypoint: ["dockerize", "-wait", "tcp://mongo_db:27017", "-timeout", "60s", "/opt/bitnami/mongodb-exporter/bin/mongodb_exporter"]
     networks:
       - mongo-cluster
 
