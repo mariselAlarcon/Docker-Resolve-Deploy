@@ -8,8 +8,8 @@ services:
     volumes:
       - ./mongo_data/gym_db:/data/dump
       - ./mongo_data/mongo_script:/docker-entrypoint-initdb.d
-      - ./mongo_backups:/backups
-      #- ./mongo_data/mongod.conf:/etc/mongod.conf
+      - ./mongo_key/replica.key:/data/replica.key.devel
+      - ./mongo_backups:/backups 
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin1234
@@ -17,6 +17,52 @@ services:
     restart: always
     networks: 
       - mongo-cluster
+    depends_on:
+      - mongo_db1
+      - mongo_db2
+    entrypoint:
+      - bash
+      - -c
+      - |
+          cp /data/replica.key.devel /data/replica.key
+          chmod 400 /data/replica.key
+          chown 999:999 /data/replica.key
+          exec docker-entrypoint.sh $$@ 
+    command: mongod --replSet mongoReplicaSet --bind_ip localhost,mongo_db --keyFile /data/replica.key
+
+  mongo_db1:
+    image: mongo:latest
+    container_name: mongo_db1
+    networks:
+      - mongo-cluster
+    volumes:
+      - ./mongo_key/replica.key:/data/replica.key.devel
+    entrypoint:
+      - bash
+      - -c
+      - |
+          cp /data/replica.key.devel /data/replica.key
+          chmod 400 /data/replica.key 
+          chown 999:999 /data/replica.key
+          exec docker-entrypoint.sh $$@
+    command: mongod --replSet mongoReplicaSet --bind_ip localhost,mongo_db1 --keyFile /data/replica.key
+
+  mongo_db2:
+    image: mongo:latest
+    container_name: mongo_db2
+    networks:
+      - mongo-cluster
+    volumes:
+      - ./mongo_key/replica.key:/data/replica.key.devel
+    entrypoint:
+      - bash
+      - -c
+      - |
+          cp /data/replica.key.devel /data/replica.key
+          chmod 400 /data/replica.key 
+          chown 999:999 /data/replica.key
+          exec docker-entrypoint.sh $$@
+    command: mongod --replSet mongoReplicaSet --bind_ip localhost,mongo_db2 --keyFile /data/replica.key
 
   mongo-client:
     image: mongo-express:latest
