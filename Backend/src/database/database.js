@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const URI = process.env.MONGO_URI || 'mongodb://admin:admin1234@mongo_db:27017/gym_db?authSource=admin';
-
+const URI = process.env.MONGO_URI || 'mongodb://admin:admin1234@mongo_db:27017,mongo_db1:27017,mongo_db2:27017/gym_db?authSource=admin&replicaSet=mongoReplicaSet&readPreference=secondaryPreferred'; 
 const dbconnect = () => {
   let retries = 5;
   let retryInterval = 5000;
