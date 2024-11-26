@@ -72,8 +72,11 @@ const PORT = 3000;
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-app.use(cors({origin: 'http://localhost:4200'}));
 
+// Permitir solicitudes desde localhost (para desarrollo) y Netlify (para producción)
+app.use(cors({
+  origin: ['http://localhost:4200', 'https://mi-frontend-en-netlify.netlify.app']  // Ambos orígenes permitidos
+}));
 
 
 // Establecer la zona horaria deseada

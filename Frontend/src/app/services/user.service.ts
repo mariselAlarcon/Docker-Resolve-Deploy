@@ -2,14 +2,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserRequest, UserResponse } from '../models/user';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  //donde está la BD -_-?
-  baseUrl='http://localhost:3000/users'
+  
+  //baseUrl='http://localhost:3000/users'
+  private baseUrl = `${environment.apiUrl}/users`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _http: HttpClient) { }
 

@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EventI } from '../models/event';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private baseUrl='http://localhost:3000/events'
+  //private baseUrl='http://localhost:3000/events'
+  private baseUrl = `${environment.apiUrl}/events`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _http:HttpClient) { }
   

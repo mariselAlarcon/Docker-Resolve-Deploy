@@ -2,12 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MemberRequest, MemberResponse } from '../models/member';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
-  private baseUrl='http://localhost:3000/members'
+  //private baseUrl='http://localhost:3000/members'
+  private baseUrl = `${environment.apiUrl}/members`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _http:HttpClient) { }
 

@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MonthlyFeeRequest, MonthlyFeeResponse } from '../models/monthly-fee';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MonthlyFeeService {
 
-  private baseUrl='http://localhost:3000/monthlyFees'
+  //private baseUrl='http://localhost:3000/monthlyFees'
+  private baseUrl = `${environment.apiUrl}/monthlyFees`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _http: HttpClient) { }
 

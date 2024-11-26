@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaymentRecordRequest, PaymentRecordResponse } from '../models/payment-record';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentRecordService {
-  private baseUrl='http://localhost:3000/paymentRecords'
+  //private baseUrl='http://localhost:3000/paymentRecords'
+  private baseUrl = `${environment.apiUrl}/paymentRecords`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
+
   constructor(private _http: HttpClient) { }
 
   getAllPaymentRecord():Observable<any>{

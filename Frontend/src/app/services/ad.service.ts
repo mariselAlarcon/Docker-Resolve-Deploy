@@ -2,12 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ad } from '../models/ad';
+import { environment } from '../../environments/environment';  // Asegúrate de que este archivo esté correctamente importado
+
 @Injectable({
   providedIn: 'root'
 })
 export class AdService {
   
-  private baseUrl='http://localhost:3000/ads'
+  //private baseUrl='http://localhost:3000/ads'
+  private baseUrl = `${environment.apiUrl}/ads`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _htpp: HttpClient) { }
 

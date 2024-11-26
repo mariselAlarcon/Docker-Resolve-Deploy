@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Coach } from '../models/coach';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoachService {
 
-  private baseUrl= 'http://localhost:3000/coaches'
+  //private baseUrl= 'http://localhost:3000/coaches'
+  private baseUrl = `${environment.apiUrl}/coaches`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _http: HttpClient) { }
 

@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AttendanceRecordRequest, AttendanceRecordResponse } from '../models/attendance-record';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceRecordService {
 
-  private baseUrl='http://localhost:3000/attendanceRecords'
+  //private baseUrl='http://localhost:3000/attendanceRecords'
+  private baseUrl = `${environment.apiUrl}/attendanceRecords`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _http:HttpClient) { }
 

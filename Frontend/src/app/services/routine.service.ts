@@ -2,13 +2,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RoutineRequest, RoutineResponse,  } from '../models/routine';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoutineService {
 
-  private baseUrl='http://localhost:3000/routines'
+ // private baseUrl='http://localhost:3000/routines'
+ private baseUrl = `${environment.apiUrl}/routines`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
 
   constructor(private _http: HttpClient) { }
 
