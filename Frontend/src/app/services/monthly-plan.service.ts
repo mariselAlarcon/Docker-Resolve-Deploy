@@ -9,8 +9,10 @@ import { environment } from '../../environments/environment';
 })
 export class MonthlyPlanService {
  //private baseUrl='http://localhost:3000/monthlyPlans'
- private baseUrl = `${environment.apiUrl}/monthlyPlans`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada 
+ //private baseUrl = `${environment.apiUrl}/monthlyPlans`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada 
+ private baseUrl = `https://docker-resolve-back.onrender.com/monthlyPlans`;
  
+
  constructor(private _http: HttpClient) { }
 
   getAllMonthlyPlans():Observable<MonthlyPlan[]>{

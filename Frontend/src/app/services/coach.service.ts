@@ -11,7 +11,7 @@ export class CoachService {
 
   //private baseUrl= 'http://localhost:3000/coaches'
   //private baseUrl = `${environment.apiUrl}/coaches`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
-  private baseUrl = `https://docker-resolve-back.onrender.com}/coaches`;
+  private baseUrl = `https://docker-resolve-back.onrender.com/coaches`;
   
   constructor(private _http: HttpClient) { }
 
