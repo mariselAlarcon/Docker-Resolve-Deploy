@@ -97,12 +97,14 @@ services:
     container_name: watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30
+    command: --interval 30 --label-enable
     restart: always
   
   frontend:
     image: maxmartinez29/docker-resolve-frontend:latest
     container_name: frontend
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     ports:
       - "4200:4200"
     depends_on:
