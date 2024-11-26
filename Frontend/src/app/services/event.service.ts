@@ -10,8 +10,9 @@ import { environment } from '../../environments/environment';
 export class EventService {
 
   //private baseUrl='http://localhost:3000/events'
-  private baseUrl = `${environment.apiUrl}/events`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
-
+ // private baseUrl = `${environment.apiUrl}/events`;  // Usamos environment.apiUrl en lugar de la URL hardcodeada
+ private baseUrl = `https://docker-resolve-back.onrender.com/events`;
+ 
   constructor(private _http:HttpClient) { }
   
  getAllEvents():Observable<any>{
